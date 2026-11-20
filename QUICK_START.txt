@@ -1,0 +1,229 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    RHCONNECT - QUICK START GUIDE                              ║
+║                          All Systems Running ✅                                 ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 ACCESS POINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Frontend (React):  http://localhost:5173  ✅ RUNNING
+Backend (API):     http://localhost:8080  ✅ RUNNING
+Database:          mongodb://localhost:27017 ✅ RUNNING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 TEST ACCOUNTS - QUICK COPY/PASTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CANDIDATE #1 (Full Profile - Verified ✅)
+  Email:    lucas.martin@rhconnect.tn
+  Password: RhConnect2026!
+  Status:   Dossier Certifié Conforme
+
+CANDIDATE #2 (Partial Profile - Pending ⏳)
+  Email:    marie.dupont@rhconnect.tn
+  Password: RhConnect2026!
+  Status:   Verification Pending
+
+COMPANY #1 (Active - Verified ✅)
+  Email:    recruiter@techcorp-tn.com
+  Password: RhConnect2026!
+  Company:  TechCorp Tunisia
+  Status:   Company Verified
+
+COMPANY #2 (Moderate - Pending ⏳)
+  Email:    hr@innovationlabs.tn
+  Password: RhConnect2026!
+  Company:  Innovation Labs
+  Status:   Verification Pending
+
+ADMIN
+  Email:    admin@rhconnect.tn
+  Password: RhConnect2026!
+  Access:   Full System
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 TESTING STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Open Frontend
+  1. Go to http://localhost:5173 in your browser
+  2. You should see the login page
+
+STEP 2: Login as Candidate
+  1. Enter: lucas.martin@rhconnect.tn
+  2. Password: RhConnect2026!
+  3. Click "Se connecter"
+  4. You should see the candidate dashboard
+
+STEP 3: Explore Candidate Space
+  • Dashboard - View KPIs, applications, recommended offers
+  • Profile - See complete profile information
+  • Verification - Check verification status (Dossier Certifié)
+  • Applications - View all job applications
+  • Offers - Browse available job positions
+
+STEP 4: Test Dark Mode
+  1. Look for theme toggle (usually in header)
+  2. Click to toggle between light/dark modes
+  3. Verify all pages render correctly
+
+STEP 5: Test Responsive Design
+  1. Press F12 to open DevTools
+  2. Press Ctrl+Shift+M to toggle device mode
+  3. Try different screen sizes: 375px, 768px, 1440px
+  4. Verify layout adapts properly
+
+STEP 6: Login as Company
+  1. Click "Déconnexion" or navigate to /auth/login
+  2. Enter: recruiter@techcorp-tn.com
+  3. Password: RhConnect2026!
+  4. You should see the company dashboard
+
+STEP 7: Explore Company Space
+  • Dashboard - View KPIs, open positions, applications
+  • Profile - See company information
+  • Offers - Manage job positions
+  • Applications - Review candidate applications
+  • Statistics - View analytics and reports
+  • Settings - Configure notifications and preferences
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ KEY FEATURES TO TEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Dark Mode Support
+   • Toggle theme in header
+   • All pages support dark/light modes
+   • Colors maintain contrast
+   • Text remains readable
+
+✅ Responsive Design
+   • Mobile (320px) - Single column, stacked
+   • Tablet (640px) - 2 columns, responsive spacing
+   • Desktop (1024px+) - Full width layout
+   • Proper touch targets on mobile
+
+✅ Modern Design System
+   • Semantic Tailwind colors (no hardcoded hex)
+   • Consistent spacing and typography
+   • Professional UI components
+   • Status badges with colors: emerald (✓), amber (⏳), rose (✗)
+
+✅ Verification System
+   • Documents upload
+   • Status tracking (pending/verified)
+   • Audit trail
+   • Notifications on status change
+
+✅ Job Application Flow
+   • Browse offers
+   • Apply to positions
+   • Track applications
+   • Receive status updates
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DASHBOARD PAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CANDIDATE DASHBOARD (/candidate/dashboard)
+  • Profile completion: 100%
+  • Recent applications: 30+
+  • Recommended offers: 4
+  • Verification status: Verified ✅
+  • Quick actions: View profile, Apply, Browse offers
+
+COMPANY DASHBOARD (/company/dashboard)
+  • Active positions: 5
+  • Applications received: 25
+  • Profile completion: 95%
+  • Company status: Verified ✅
+  • Quick actions: Create offer, Review applications, View stats
+
+VERIFICATION PAGE (/candidate/verification)
+  • Document upload
+  • Submission tracking
+  • Status: Dossier Certifié Conforme ✅
+  • Audit history
+
+PROFILE PAGE (/candidate/profile)
+  • Personal information
+  • Education & experience
+  • Skills
+  • Documents
+  • Edit capabilities
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 DESIGN SYSTEM COLORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary (Teal/Signal):       #0F766E → signal (Tailwind)
+Success/Verified (Green):    #059669 → emerald-600
+Warning/Pending (Amber):     #D4A72C → amber-500
+Error/Rejected (Rose):       #E11D48 → rose-600
+Neutral Dark (Slate):        #172A3A → slate-900
+Neutral Light (Slate):       #F1F5F9 → slate-100
+
+Dark Mode:
+  Text (Dark): dark:text-white
+  Border (Dark): dark:border-slate-700
+  Background (Dark): dark:bg-slate-900
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐛 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Page blank/not loading
+  → Check frontend running: npm run dev in frontend-public/
+  → Check backend running: mvn spring-boot:run in backend/
+  → Clear browser cache (Ctrl+Shift+Delete)
+  → Hard refresh: Ctrl+Shift+R
+
+Problem: Login fails
+  → Check backend logs (should show requests)
+  → Verify MongoDB running (mongodb://localhost:27017)
+  → Try different account
+  → Check browser console (F12) for errors
+
+Problem: Dark mode not working
+  → Check if toggle is visible in header
+  → Clear localStorage: F12 → Console → localStorage.clear()
+  → Refresh page
+
+Problem: Images not loading
+  → Check network tab (F12 → Network)
+  → Verify assets are in public folder
+  → Try hard refresh
+
+Problem: Styling looks wrong
+  → Check if Tailwind CSS loaded (F12 → Network → check .css files)
+  → Try clearing browser cache
+  → Check browser compatibility (use Chrome if unsure)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For more details, see:
+  • TEST_CREDENTIALS.md - Full test account info
+  • FRONTEND_MODERNIZATION_REPORT.md - Design system details
+  • MODERNIZATION_SUMMARY.txt - Project summary
+  • FILES_MODIFIED.txt - All changes made
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ YOU'RE READY TO TEST!
+
+Go to http://localhost:5173 and login with one of the test accounts above.
+
+Enjoy exploring RHConnect! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
