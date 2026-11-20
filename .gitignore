@@ -38,3 +38,9 @@ hs_err_pid*
 token.txt
 login-*.json
 test-automation/config.json
+
+# Fichiers de configuration d'assistants IA et rapports generes (hors application)
+.kiro/
+.trae/
+MODERNIZATION_SUMMARY.txt
+VERIFICATION_SUMMARY.txt
