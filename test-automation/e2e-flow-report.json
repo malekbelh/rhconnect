@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-09-13T21:46:41.100Z",
+  "environment": {
+    "API_BASE": "http://localhost:8080/api",
+    "nodeVersion": "v26.7.0"
+  },
+  "results": {
+    "total": 12,
+    "passed": 8,
+    "failed": 4,
+    "tests": [
+      {
+        "name": "Register candidate account",
+        "status": "PASSED"
+      },
+      {
+        "name": "Register company account",
+        "status": "PASSED"
+      },
+      {
+        "name": "PUT /api/candidates/me - Complete profile with strong matching",
+        "status": "PASSED"
+      },
+      {
+        "name": "POST /api/offers - Create job offer",
+        "status": "PASSED"
+      },
+      {
+        "name": "POST /api/applications - Submit application",
+        "status": "FAILED",
+        "error": "Apply failed: 422 - {\"success\":false,\"message\":\"Matching score 20 < 50\",\"data\":null,\"errors\":[\"Code : MATCHING_REQUIREMENTS_NOT_MET - Matching score 20 < 50\"]}"
+      },
+      {
+        "name": "GET /api/applications - Company views applications",
+        "status": "FAILED",
+        "error": "Company should see the application"
+      },
+      {
+        "name": "PUT /api/applications/:id - Change application status",
+        "status": "FAILED",
+        "error": "Change status failed: 422 - {\"success\":false,\"message\":\"Candidature introuvable\",\"data\":null,\"errors\":[\"Code : APPLICATION_NOT_FOUND - Candidature introuvable\"]}"
+      },
+      {
+        "name": "GET /api/applications/:id - Candidate views updated application",
+        "status": "FAILED",
+        "error": "Get application failed: 422"
+      },
+      {
+        "name": "GET /api/notifications - Candidate receives notification",
+        "status": "PASSED"
+      },
+      {
+        "name": "Candidate applies to same offer again (for rejection test)",
+        "status": "PASSED"
+      },
+      {
+        "name": "Duplicate application to same offer",
+        "status": "PASSED"
+      },
+      {
+        "name": "Security: Candidate cannot access other company's applications",
+        "status": "PASSED"
+      }
+    ]
+  },
+  "testIds": {
+    "offerId": "6aa719c1e0e6ea7699955ebe",
+    "applicationId": null
+  }
+}

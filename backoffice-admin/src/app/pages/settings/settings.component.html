@@ -1,0 +1,314 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="px-1 py-4">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+      <div class="flex items-start">
+        <div class="flex-1">
+          <h1 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Paramètres système</h1>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-1.5">Gérez les paramètres globaux de RhConnect</p>
+        </div>
+      </div>
+      <div class="flex gap-2.5">
+        <button (click)="save()" [disabled]="!dirty || saving" type="button" class="px-4 py-2.5 rounded-xl font-semibold text-sm text-white bg-[#0F766E] dark:bg-cyan-600 hover:bg-[#0d5d57] dark:hover:bg-cyan-700 transition-colors flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg *ngIf="!saving" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline stroke-linecap="round" points="17,21 17,13 7,13 7,21"/><polyline stroke-linecap="round" points="7,3 7,8 15,8"/></svg>
+          <svg *ngIf="saving" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="animate-spin"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+          {{ saving ? 'Sauvegarde…' : 'Sauvegarder' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GLOBAL ALERTS ═══ -->
+  <div *ngIf="error && !loading" class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-2xl flex items-start gap-3 text-sm text-red-700 dark:text-red-400 font-medium animate-fadeIn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+    <span>Erreur de chargement. Vérifiez que le backend est disponible.</span>
+  </div>
+
+  <div *ngIf="savedAt" class="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 rounded-2xl flex items-start gap-3 text-sm text-emerald-800 dark:text-emerald-300 font-medium animate-fadeIn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5"><path stroke-linecap="round" d="M20 6 9 17l-5-5"/></svg>
+    <div>
+      <p class="font-semibold">Paramètres sauvegardés</p>
+    </div>
+  </div>
+
+  <!-- ═══ LOADING STATE ═══ -->
+  <div *ngIf="loading" class="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-400">
+    <div class="w-10 h-10 rounded-full border-3 border-slate-300 dark:border-slate-600 border-t-[#0F766E] dark:border-t-cyan-500 animate-spin mb-5"></div>
+    <p class="text-sm font-semibold">Chargement des paramètres…</p>
+  </div>
+
+  <!-- ═══ 2-COLUMN LAYOUT ═══ -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="lg:col-span-1">
+      <nav class="space-y-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-3xl shadow-xs min-h-fit">
+        <button
+          type="button"
+          (click)="activeSection = 'notifications'"
+          [ngClass]="activeSection === 'notifications' 
+            ? 'bg-teal-50 dark:bg-teal-950/50 text-signal dark:text-cyan-400 shadow-xs border border-teal-100 dark:border-teal-800/40'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all text-left cursor-pointer whitespace-nowrap overflow-hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flex-shrink-0"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="truncate">Notifications</span>
+        </button>
+        <button
+          type="button"
+          (click)="activeSection = 'uploads'"
+          [ngClass]="activeSection === 'uploads' 
+            ? 'bg-teal-50 dark:bg-teal-950/50 text-signal dark:text-cyan-400 shadow-xs border border-teal-100 dark:border-teal-800/40'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all text-left cursor-pointer whitespace-nowrap overflow-hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span class="truncate">Uploads & Fichiers</span>
+        </button>
+        <button
+          type="button"
+          (click)="activeSection = 'categories'"
+          [ngClass]="activeSection === 'categories' 
+            ? 'bg-teal-50 dark:bg-teal-950/50 text-signal dark:text-cyan-400 shadow-xs border border-teal-100 dark:border-teal-800/40'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all text-left cursor-pointer whitespace-nowrap overflow-hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span class="truncate">Catégories de postes</span>
+        </button>
+        <button
+          type="button"
+          (click)="activeSection = 'skills'"
+          [ngClass]="activeSection === 'skills' 
+            ? 'bg-teal-50 dark:bg-teal-950/50 text-signal dark:text-cyan-400 shadow-xs border border-teal-100 dark:border-teal-800/40'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all text-left cursor-pointer whitespace-nowrap overflow-hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="truncate">Compétences</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- CONTENT PANEL -->
+    <div class="lg:col-span-3 space-y-6 px-4 lg:px-6">
+
+      <!-- SECTION: NOTIFICATIONS -->
+      <ng-container *ngIf="!loading && settings && activeSection === 'notifications'">
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
+        <div class="pb-4 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="font-display font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-signal dark:text-cyan-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Notifications dashboard
+          </h2>
+        </div>
+
+        <div class="space-y-3.5">
+          <div class="flex items-start justify-between gap-4 p-4 rounded-2xl transition-colors" [ngClass]="settings.notifyOnNewUser ? 'bg-teal-50 dark:bg-slate-800/50 border border-teal-100 dark:border-slate-800' : 'bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800'">
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">Nouvel utilisateur</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Notification à chaque inscription</p>
+            </div>
+            <button
+              type="button"
+              (click)="toggle('notifyOnNewUser')"
+              [attr.aria-checked]="settings.notifyOnNewUser"
+              role="switch"
+              class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer flex-shrink-0"
+              [ngClass]="settings.notifyOnNewUser ? 'bg-[#0F766E] dark:bg-cyan-600' : 'bg-slate-300 dark:bg-slate-700'">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform"
+                    [ngClass]="settings.notifyOnNewUser ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+
+          <div class="flex items-start justify-between gap-4 p-4 rounded-2xl transition-colors" [ngClass]="settings.notifyOnNewApplication ? 'bg-teal-50 dark:bg-slate-800/50 border border-teal-100 dark:border-slate-800' : 'bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800'">
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">Nouvelle candidature</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Alerte à chaque dépôt</p>
+            </div>
+            <button
+              type="button"
+              (click)="toggle('notifyOnNewApplication')"
+              [attr.aria-checked]="settings.notifyOnNewApplication"
+              role="switch"
+              class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer flex-shrink-0"
+              [ngClass]="settings.notifyOnNewApplication ? 'bg-[#0F766E] dark:bg-cyan-600' : 'bg-slate-300 dark:bg-slate-700'">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform"
+                    [ngClass]="settings.notifyOnNewApplication ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+
+          <div class="flex items-start justify-between gap-4 p-4 rounded-2xl transition-colors" [ngClass]="settings.notifyOnDisputeOpened ? 'bg-teal-50 dark:bg-slate-800/50 border border-teal-100 dark:border-slate-800' : 'bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800'">
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">Litige ouvert</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Alerte immédiate</p>
+            </div>
+            <button
+              type="button"
+              (click)="toggle('notifyOnDisputeOpened')"
+              [attr.aria-checked]="settings.notifyOnDisputeOpened"
+              role="switch"
+              class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer flex-shrink-0"
+              [ngClass]="settings.notifyOnDisputeOpened ? 'bg-[#0F766E] dark:bg-cyan-600' : 'bg-slate-300 dark:bg-slate-700'">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform"
+                    [ngClass]="settings.notifyOnDisputeOpened ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+
+          <div class="flex items-start justify-between gap-4 p-4 rounded-2xl transition-colors" [ngClass]="settings.notifyOnVerificationRequest ? 'bg-teal-50 dark:bg-slate-800/50 border border-teal-100 dark:border-slate-800' : 'bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800'">
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">Demande de vérification</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Alerte KYC/RNE</p>
+            </div>
+            <button
+              type="button"
+              (click)="toggle('notifyOnVerificationRequest')"
+              [attr.aria-checked]="settings.notifyOnVerificationRequest"
+              role="switch"
+              class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer flex-shrink-0"
+              [ngClass]="settings.notifyOnVerificationRequest ? 'bg-[#0F766E] dark:bg-cyan-600' : 'bg-slate-300 dark:bg-slate-700'">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform"
+                    [ngClass]="settings.notifyOnVerificationRequest ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+
+          <!-- Email notification -->
+          <div class="space-y-2 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+            <label class="text-xs font-bold text-slate-900 dark:text-white">Email de notification</label>
+            <input
+              type="email"
+              [(ngModel)]="settings.adminNotificationEmail"
+              (ngModelChange)="dirty = true"
+              placeholder="admin@rhconnect.com"
+              class="w-full px-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-medium focus:border-[#0F766E] dark:focus:border-cyan-600 focus:ring-2 focus:ring-[#0F766E]/20 dark:focus:ring-cyan-600/20 transition-all"
+            />
+            <p class="text-[11px] text-slate-600 dark:text-slate-400">Adresse email pour recevoir les notifications</p>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+
+      <!-- SECTION: UPLOADS & FICHIERS -->
+      <ng-container *ngIf="!loading && settings && activeSection === 'uploads'">
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
+        <div class="pb-4 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="font-display font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-signal dark:text-cyan-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Uploads & Fichiers
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Taille maximale et formats acceptés</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- File Size -->
+ <div class="space-y-2.5">
+  <div class="flex items-center justify-between">
+    <label class="text-xs font-bold text-slate-900 dark:text-white">Taille max. par fichier</label>
+    <span class="text-xs font-bold text-signal dark:text-cyan-400 bg-signal/10 dark:bg-cyan-600/20 px-3 py-1 rounded-lg">
+      {{ settings.maxFileSizeMb }} Mo
+    </span>
+  </div>
+
+  <input
+    type="range"
+    min="1"
+    max="2000"
+    [(ngModel)]="settings.maxFileSizeMb"
+    (ngModelChange)="dirty = true"
+    class="range-slider w-full"
+    [style.background]="'linear-gradient(to right, #0F766E ' + ((settings.maxFileSizeMb - 1) / 1999 * 100) + '%, #cbd5e1 ' + ((settings.maxFileSizeMb - 1) / 1999 * 100) + '%)'"
+  />
+
+  <div class="flex items-center justify-between">
+    <p class="text-[11px] text-slate-500 dark:text-slate-400">Min: 1 Mo</p>
+    <p class="text-[11px] text-slate-600 dark:text-slate-400">Maximum: 2000 Mo</p>
+  </div>
+</div>
+
+          <!-- Extensions -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-900 dark:text-white">Extensions autorisées</label>
+            <div class="flex flex-wrap gap-2 p-3 ">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-signal/10 dark:bg-signal/20 text-signal dark:text-cyan-400 text-[11px] font-semibold" *ngFor="let ext of settings.allowedExtensions">
+                .{{ ext }}
+                <button type="button" class="hover:opacity-70 transition-opacity" (click)="removeExt(ext)">×</button>
+              </span>
+              <div class="flex items-center gap-1 flex-1 min-w-[140px]">
+                <input type="text" placeholder="Ajouter extension…" #newExt
+                  (keydown.enter)="addExt(newExt.value); newExt.value=''"
+                  (keydown.comma)="addExt(newExt.value); newExt.value=''; $event.preventDefault()"
+                  class="flex-1 border-none outline-none bg-transparent text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500" />
+                <button type="button" (click)="addExt(newExt.value); newExt.value=''; newExt.focus()" 
+                  class="px-2.5 py-1 rounded text-xs font-bold text-signal dark:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </ng-container>
+
+      <!-- SECTION: JOB CATEGORIES -->
+      <ng-container *ngIf="!loading && settings && activeSection === 'categories'">
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
+        <div class="pb-4 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="font-display font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-signal dark:text-cyan-400"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Catégories de postes
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Référentiel des catégories d'emploi</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 p-3  max-h-48 overflow-y-auto">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-signal/10 dark:bg-signal/20 text-signal dark:text-cyan-400 text-[11px] font-semibold" *ngFor="let cat of settings.jobCategories">
+            {{ cat }}
+            <button type="button" class="hover:opacity-70 transition-opacity" (click)="removeFromRef('jobCategories', cat)">×</button>
+          </span>
+          <input type="text" placeholder="Ajouter catégorie…" #newCat
+            (keydown.enter)="addToRef('jobCategories', newCat.value); newCat.value=''"
+            (keydown.comma)="addToRef('jobCategories', newCat.value); newCat.value=''; $event.preventDefault()"
+            class="flex-1 min-w-[140px] border-none outline-none bg-transparent text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500" />
+        </div>
+      </div>
+      </ng-container>
+
+      <!-- SECTION: SKILLS REFERENTIAL -->
+      <ng-container *ngIf="!loading && settings && activeSection === 'skills'">
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
+        <div class="pb-4 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="font-display font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-signal dark:text-cyan-400"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            Référentiel compétences
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <span>Compétences disponibles</span>
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 p-3  max-h-48 overflow-y-auto">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-signal/10 dark:bg-signal/20 text-signal dark:text-cyan-400 text-[11px] font-semibold" *ngFor="let skill of settings.skillsReferential">
+            {{ skill }}
+            <button type="button" class="hover:opacity-70 transition-opacity" (click)="removeFromRef('skillsReferential', skill)">×</button>
+          </span>
+          <input type="text" placeholder="Ajouter compétence…" #newSkill
+            (keydown.enter)="addToRef('skillsReferential', newSkill.value); newSkill.value=''"
+            (keydown.comma)="addToRef('skillsReferential', newSkill.value); newSkill.value=''; $event.preventDefault()"
+            class="flex-1 min-w-[140px] border-none outline-none bg-transparent text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500" />
+        </div>
+
+        <div class="flex justify-end pt-2 border-t border-slate-100 dark:border-slate-800">
+          <button
+            type="button"
+            (click)="save()"
+            [disabled]="saving"
+            class="flex items-center gap-2 px-6 py-2.5 bg-[#0F766E] hover:bg-[#0d5d57] dark:bg-cyan-600 dark:hover:bg-cyan-700 text-white rounded-xl font-bold text-xs shadow-xs transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+            <svg *ngIf="!saving" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline stroke-linecap="round" points="17,21 17,13 7,13 7,21"/><polyline stroke-linecap="round" points="7,3 7,8 15,8"/></svg>
+            <svg *ngIf="saving" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+            {{ saving ? 'Sauvegarde…' : 'Sauvegarder' }}
+          </button>
+        </div>
+      </div>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</div>

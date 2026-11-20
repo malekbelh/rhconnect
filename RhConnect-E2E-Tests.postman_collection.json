@@ -1,0 +1,656 @@
+{
+  "info": {
+    "name": "RhConnect E2E Tests",
+    "description": "End-to-End tests pour workflows critiques de RhConnect",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication Workflow",
+      "item": [
+        {
+          "name": "Register Candidate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains userId', function () {",
+                  "    pm.expect(pm.response.json().userId).to.exist;",
+                  "});",
+                  "",
+                  "pm.environment.set('candidateUserId', pm.response.json().userId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"candidate@test.com\",\n  \"password\": \"SecurePass@123\",\n  \"role\": \"CANDIDATE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register Company",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.environment.set('companyUserId', pm.response.json().userId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"company@test.com\",\n  \"password\": \"SecurePass@123\",\n  \"role\": \"COMPANY\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Candidate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains token', function () {",
+                  "    pm.expect(pm.response.json().token).to.exist;",
+                  "});",
+                  "",
+                  "pm.environment.set('candidateToken', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"candidate@test.com\",\n  \"password\": \"SecurePass@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Company",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.environment.set('companyToken', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"company@test.com\",\n  \"password\": \"SecurePass@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Offer Workflow",
+      "item": [
+        {
+          "name": "Create Offer (DRAFT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Offer created in DRAFT status', function () {",
+                  "    pm.expect(pm.response.json().statut).to.equal('DRAFT');",
+                  "});",
+                  "",
+                  "pm.environment.set('offerId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{companyToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Senior Java Developer\",\n  \"description\": \"We are looking for an experienced Java developer\",\n  \"competencesRequises\": \"Java, Spring Boot, MongoDB\",\n  \"niveauExperience\": \"CONFIRME\",\n  \"typeContrat\": \"CDI\",\n  \"localisation\": \"Paris\",\n  \"salaireMin\": 45000,\n  \"salaireMax\": 65000,\n  \"matchingTags\": [\"Java\", \"Spring\", \"Backend\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/offers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "offers"]
+            }
+          }
+        },
+        {
+          "name": "Submit Offer for Moderation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Offer moved to PENDING_MODERATION', function () {",
+                  "    pm.expect(pm.response.json().statut).to.equal('PENDING_MODERATION');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{companyToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/offers/{{offerId}}/submit-for-moderation",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "offers", "{{offerId}}", "submit-for-moderation"]
+            }
+          }
+        },
+        {
+          "name": "Approve Offer (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Offer approved and ACTIVE', function () {",
+                  "    pm.expect(pm.response.json().statut).to.equal('ACTIVE');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"APPROVE\",\n  \"comment\": \"Approved: All requirements met\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/offer-moderation/{{offerId}}/moderate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "offer-moderation", "{{offerId}}", "moderate"]
+            }
+          }
+        },
+        {
+          "name": "Search Offers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Contains created offer', function () {",
+                  "    var offers = pm.response.json().content;",
+                  "    pm.expect(offers.length).to.be.greaterThan(0);",
+                  "    pm.expect(offers[0].title).to.include('Java');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{candidateToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/offers/search?keyword=Java&page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "offers", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "Java"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Application Workflow",
+      "item": [
+        {
+          "name": "Submit Application",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Application created with ENVOYEE status', function () {",
+                  "    pm.expect(pm.response.json().statut).to.equal('ENVOYEE');",
+                  "});",
+                  "",
+                  "pm.environment.set('applicationId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{candidateToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offerId\": \"{{offerId}}\",\n  \"coverLetter\": \"I am interested in this position because...\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Get My Applications (Candidate)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Applications list contains submitted application', function () {",
+                  "    var applications = pm.response.json();",
+                  "    pm.expect(applications.length).to.be.greaterThan(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{candidateToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/my-applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "my-applications"]
+            }
+          }
+        },
+        {
+          "name": "Get Company Applications",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Company sees received applications', function () {",
+                  "    var applications = pm.response.json();",
+                  "    pm.expect(applications.length).to.be.greaterThan(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{companyToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Update Application Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Application status updated', function () {",
+                  "    pm.expect(pm.response.json().statut).to.equal('VERIFIE');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{companyToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"statut\": \"VERIFIE\",\n  \"commentaire\": \"Candidate profile verified\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Security Tests",
+      "item": [
+        {
+          "name": "Weak Password Rejection",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message about password policy', function () {",
+                  "    pm.expect(pm.response.json().message).to.include('password');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"weakpass@test.com\",\n  \"password\": \"weak\",\n  \"role\": \"CANDIDATE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Duplicate Email Rejection",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 400 or 409', function () {",
+                  "    pm.expect([400, 409]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"candidate@test.com\",\n  \"password\": \"SecurePass@123\",\n  \"role\": \"CANDIDATE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Unauthorized Access (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 401', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/my-applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "my-applications"]
+            }
+          }
+        },
+        {
+          "name": "Invalid Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 401', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid_token_12345"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/my-applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "my-applications"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "candidateToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "companyToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "offerId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "applicationId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

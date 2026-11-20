@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-13T21:16:32.553Z",
+  "environment": {
+    "API_BASE": "http://localhost:8080/api",
+    "nodeVersion": "v26.7.0"
+  },
+  "results": {
+    "total": 8,
+    "passed": 7,
+    "failed": 1,
+    "tests": [
+      {
+        "name": "Login existing user",
+        "status": "FAILED",
+        "error": "Login failed: 401"
+      },
+      {
+        "name": "Register new company",
+        "status": "PASSED"
+      },
+      {
+        "name": "POST /api/offers - Create new offer",
+        "status": "PASSED"
+      },
+      {
+        "name": "GET /api/offers/:id - Retrieve created offer",
+        "status": "PASSED"
+      },
+      {
+        "name": "PUT /api/offers/:id - Update offer",
+        "status": "PASSED"
+      },
+      {
+        "name": "GET /api/offers/:id - Verify modifications persisted",
+        "status": "PASSED"
+      },
+      {
+        "name": "GET /api/offers - List all offers",
+        "status": "PASSED"
+      },
+      {
+        "name": "PUT /api/offers/:id - Close offer",
+        "status": "PASSED"
+      }
+    ]
+  },
+  "offerId": "6aa712b01501ad3d14d33638"
+}

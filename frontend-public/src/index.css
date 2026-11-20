@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rh-paper: #F3F6F7;
+  --rh-ink: #172A3A;
+  --rh-signal: #0F766E;
+  --rh-pending: #D4A72C;
+}
+
+.dark {
+  --rh-paper: #0A1520;
+  --rh-ink: #E2E8F0;
+  --rh-signal: #14B8A6;
+  --rh-pending: #FBBF24;
+}
+
+.rh-logo-mark {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.rh-logo-mark-light {
+  background: var(--rh-ink);
+  color: var(--rh-pending);
+}
+
+.rh-logo-mark-dark {
+  background: var(--rh-signal);
+  color: #FFFFFF;
+}
+
+.rh-wordmark {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.rh-wordmark-light {
+  color: var(--rh-ink);
+}
+
+.rh-wordmark-light span {
+  color: var(--rh-signal);
+}
+
+.rh-wordmark-dark {
+  color: #FFFFFF;
+}
+
+.rh-wordmark-dark span {
+  color: var(--rh-pending);
+}
+
+.site-footer {
+  display: block;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  min-height: 280px;
+  background-color: var(--rh-ink);
+  color: #FFFFFF;
+}
+
+.home-page {
+  background: var(--rh-paper);
+  color: var(--rh-ink);
+}
+
+.home-dark-section {
+  background: var(--rh-ink);
+  color: #FFFFFF;
+}
+
+.home-signal-section {
+  background: var(--rh-signal);
+  color: #FFFFFF;
+}
+
+.home-primary-section {
+  background: var(--rh-signal);
+  color: #FFFFFF;
+}
+
+.home-stats-section {
+  background: var(--rh-pending);
+  color: var(--rh-ink);
+  position: relative;
+  border-bottom: 1px solid rgba(212, 167, 44, 0.35);
+}
+
+.home-light-section {
+  background: #FFFFFF;
+  color: var(--rh-ink);
+}
+
+.home-paper-section {
+  background: var(--rh-paper);
+  color: var(--rh-ink);
+}
+
+.home-light-section h1,
+.home-light-section h2,
+.home-light-section h3,
+.home-paper-section h1,
+.home-paper-section h2,
+.home-paper-section h3,
+.home-stats-section p,
+.home-stats-section strong {
+  color: var(--rh-ink);
+}
+
+@layer base {
+  html {
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--rh-paper);
+    color: var(--rh-ink);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Manrope', 'IBM Plex Sans', sans-serif;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--rh-pending);
+    outline-offset: 3px;
+  }
+}
+
+@keyframes hero-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-signature {
+  animation: hero-arrival 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 640px) {
+
+  .home-dark-section,
+  .home-light-section,
+  .home-paper-section {
+    padding: 12px 16px;
+  }
+
+  .home-dark-section .grid,
+  .home-light-section .grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .home-stats-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  .home-stats-section strong {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-signature h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-signature p {
+    font-size: 1rem;
+  }
+
+  .home-dark-section .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-top-2 {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.slide-in-from-top-2 {
+  animation-name: slide-in-from-top-2;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DARK MODE — palette alignée sur la sidebar (#172A3A / #0A1520)
+   
+   Niveaux de surface (du plus sombre au plus clair) :
+     L0 body         #0A1520  (même que sidebar dark)
+     L1 page bg      #0F1B29  (légèrement plus clair)
+     L2 card         #152334  (surfaces principales)
+     L3 card-raised  #1C2E42  (surfaces secondaires / inputs)
+     L4 hover        #213449  (hover state)
+   
+   Accentuation : teal #14B8A6 (readable on dark)
+   Bordures : #2A3F55 (visible sans être blanc)
+   Texte primaire : #E8EDF2  |  secondaire : #8CA0B3  |  muted : #5A7088
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Variables dark ── */
+.dark {
+  --dm-bg:         #0A1520;
+  --dm-page:       #0A1520;
+  --dm-card:       #0A1520;
+  --dm-card2:      #0A1520;
+  --dm-hover:      #213449;
+  --dm-border:     #2A3F55;
+  --dm-border-sub: #1F3347;
+  --dm-text:       #E8EDF2;
+  --dm-text-sub:   #8CA0B3;
+  --dm-text-muted: #5A7088;
+  --dm-teal:       #2DD4BF;
+  --dm-teal-dim:   rgba(20,184,166,0.18);
+  --dm-amber:      #FBBF24;
+  --dm-amber-dim:  rgba(251,191,36,0.15);
+  --dm-green-dim:  rgba(16,185,129,0.15);
+  --dm-red-dim:    rgba(239,68,68,0.15);
+  --dm-indigo-dim: rgba(99,102,241,0.15);
+}
+
+/* ── Base ── */
+.dark body,
+.dark html {
+  background-color: var(--dm-bg);
+  color: var(--dm-text);
+}
+
+.dark main {
+  background-color: var(--dm-bg) !important;
+}
+
+/* ── Toutes les surfaces blanches → card ── */
+.dark .bg-white { background-color: var(--dm-card) !important; }
+
+/* Surfaces, bordures et textes des pages candidat. Les attributs evitent les
+   selecteurs de classes arbitraires incompatibles avec certains minifieurs CSS. */
+.dark [class*="bg-[#F3F6F7]"],
+.dark [class*="bg-[#F8FAFC]"],
+.dark [class*="bg-[#F1F5F9]"],
+.dark [class*="bg-[#14263A]"],
+.dark [class*="bg-[#1A2F45]"] { background-color: var(--dm-card2) !important; }
+.dark [class*="bg-[#E6F7F5]"],
+.dark [class*="bg-[#F0FDFA]"],
+.dark [class*="bg-[#CCF0EB]"],
+.dark [class*="bg-[#ECFDF5]"],
+.dark [class*="bg-[#F0FDF4]"] { background-color: var(--dm-teal-dim) !important; }
+.dark [class*="bg-[#FDF8EC]"],
+.dark [class*="bg-[#FEF3C7]"],
+.dark [class*="bg-[#FFFBEB]"],
+.dark [class*="bg-[#FDE68A]"] { background-color: var(--dm-amber-dim) !important; }
+.dark [class*="bg-[#EEF2FF]"] { background-color: var(--dm-indigo-dim) !important; }
+.dark .bg-red-50,
+.dark .bg-red-100 { background-color: var(--dm-red-dim) !important; }
+.dark .bg-emerald-50 { background-color: var(--dm-green-dim) !important; }
+.dark .bg-neutral-100,
+.dark .bg-neutral-50 { background-color: var(--dm-card2) !important; }
+
+.dark [class*="bg-gradient"] { background: var(--dm-card2) !important; }
+
+.dark [class*="border-[#"],
+.dark .border-neutral-300,
+.dark .border-neutral-200,
+.dark .border-neutral-100,
+.dark .border-dashed,
+.dark main [class*="border-white"],
+.dark header [class*="border-white"] { border-color: var(--dm-border) !important; }
+.dark .border-red-200 { border-color: rgba(239,68,68,0.35) !important; }
+.dark .border-emerald-200 { border-color: rgba(16,185,129,0.35) !important; }
+
+.dark [class*="text-[#172A3A]"],
+.dark .text-neutral-900,
+.dark .text-neutral-800,
+.dark .text-neutral-700 { color: var(--dm-text) !important; }
+.dark [class*="text-[#334155]"],
+.dark [class*="text-[#475569]"],
+.dark .text-neutral-600,
+.dark .text-neutral-500 { color: var(--dm-text-sub) !important; }
+.dark [class*="text-[#64748B]"],
+.dark [class*="text-[#94A3B8]"],
+.dark .text-neutral-400,
+.dark .text-neutral-300 { color: var(--dm-text-muted) !important; }
+.dark [class*="text-[#0F766E]"],
+.dark [class*="text-[#115E59]"],
+.dark [class*="text-[#134E4A]"] { color: var(--dm-teal) !important; }
+.dark .text-danger-500,
+.dark .text-danger-600,
+.dark .text-danger-700 { color: #F87171 !important; }
+.dark .text-emerald-700 { color: #34D399 !important; }
+
+/* ── Inputs / selects / textarea ── */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: var(--dm-card2) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--dm-text-muted) !important;
+}
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: var(--dm-teal) !important;
+  box-shadow: 0 0 0 3px rgba(20,184,166,0.12) !important;
+}
+
+/* ── Hover states ── */
+.dark [class*="hover:bg-[#F8FAFC]"]:hover,
+.dark [class*="hover:bg-[#F1F5F9]"]:hover,
+.dark .hover\:bg-white\/60:hover,
+.dark .hover\:bg-neutral-50:hover        { background-color: var(--dm-hover) !important; }
+
+.dark [class*="hover:bg-[#F0FDFA]"]:hover,
+.dark [class*="hover:bg-[#CCF0EB]"]:hover,
+.dark [class*="hover:bg-[#E6F7F5]"]:hover { background-color: rgba(20,184,166,0.12) !important; }
+
+.dark [class*="hover:bg-[#E2E8F0]"]:hover { background-color: var(--dm-hover) !important; }
+
+/* ── pre / code blocks ── */
+.dark pre {
+  background-color: var(--dm-page) !important;
+  color: #C4D0DC !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* ── Topbar ── */
+.dark header {
+  background-color: rgba(10,21,32,0.92) !important;
+  border-color: var(--dm-border) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Barre de recherche topbar */
+.dark header form [class*="rounded-full"],
+.dark form .rounded-full {
+  background-color: var(--dm-card2) !important;
+  border-color: var(--dm-border) !important;
+}
+.dark header form input {
+  background-color: transparent !important;
+  color: var(--dm-text) !important;
+}
+
+/* ── Dropdown profil ── */
+.dark [class*="rounded-2xl"][class*="bg-white"],
+.dark [class*="border-[#E2E8F0]"][class*="rounded-2xl"] {
+  background-color: var(--dm-card) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* ── Chips actifs (ApplicationsPage) ── */
+.dark [class*="bg-[#172A3A]"].text-white {
+  background-color: var(--dm-teal-dim) !important;
+  color: var(--dm-teal) !important;
+  border-color: rgba(20,184,166,0.3) !important;
+}
+
+/* ── Progress bar track ── */
+.dark .h-2[class*="bg-[#F1F5F9]"].rounded-full,
+.dark .h-1\.5[class*="bg-[#F1F5F9]"].rounded-full { background-color: var(--dm-hover) !important; }
+
+/* ── Timeline connector ── */
+.dark .w-0\.5[class*="bg-[#E2E8F0]"] { background-color: var(--dm-border) !important; }
+
+/* ── Scrollbar ── */
+.dark ::-webkit-scrollbar-track { background: var(--dm-bg); }
+.dark ::-webkit-scrollbar-thumb { background: var(--dm-border); border-radius: 99px; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #3A5570; }
+
+/* ── Bouton logout ── */
+.dark [class*="hover:bg-[#FFF1F2]"] {
+  background-color: var(--dm-card) !important;
+  color: var(--dm-text-sub) !important;
+}
+.dark [class*="hover:bg-[#FFF1F2]"]:hover {
+  background-color: rgba(239,68,68,0.12) !important;
+  color: #F87171 !important;
+}
+
+/* ── Overrides spécifiques AppLayout topbar mobile button ── */
+.dark [class*="border-[#E2E8F0]"].bg-white {
+  background-color: var(--dm-card2) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   RTL (Right-to-Left) Support for Arabic
+   ═══════════════════════════════════════════════════════════════════ */
+
+html[dir="rtl"],
+html.rtl,
+html[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+body.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Flip flex direction for RTL */
+html[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+/* Flip margins and padding sides */
+html[dir="rtl"] [class*="ml-"],
+html[dir="rtl"] [class*="mr-"] {
+  margin-left: unset;
+  margin-right: unset;
+}
+
+html[dir="rtl"] [class*="pl-"],
+html[dir="rtl"] [class*="pr-"] {
+  padding-left: unset;
+  padding-right: unset;
+}
+
+/* Flip text-align */
+html[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Flip absolute positioning */
+html[dir="rtl"] [class*="left-"],
+html[dir="rtl"] [class*="right-"] {
+  left: unset;
+  right: unset;
+}
+
+/* Form inputs RTL support */
+html[dir="rtl"] input[type="text"],
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="password"],
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Input icon positioning for RTL */
+html[dir="rtl"] input + button[type="button"],
+html[dir="rtl"] .relative > input + button {
+  left: auto;
+  right: 0;
+}
+
+/* Select arrow positioning for RTL */
+html[dir="rtl"] select {
+  background-position: left 0.75rem center;
+  padding-left: 2.5rem;
+  padding-right: 0.75rem;
+}
+
+/* Grid and flex alignment for RTL */
+html[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .items-start,
+html[dir="rtl"] .items-center,
+html[dir="rtl"] .items-end {
+  text-align: right;
+}
+
+/* Button icon positioning for RTL */
+html[dir="rtl"] button .flex {
+  flex-direction: row-reverse;
+}
+
+/* Ensure proper text rendering in RTL */
+html[dir="rtl"] * {
+  text-align: inherit;
+}
+
+/* Mobile optimizations for RTL */
+@media (max-width: 768px) {
+  html[dir="rtl"] {
+    font-size: 0.95rem;
+  }
+}

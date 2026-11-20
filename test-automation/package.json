@@ -1,0 +1,30 @@
+{
+  "name": "rhconnect-e2e-tests",
+  "version": "1.0.0",
+  "description": "Automated end-to-end tests for RHConnect application candidate-to-company workflow",
+  "main": "e2e-candidature-flux.js",
+  "scripts": {
+    "test": "node e2e-candidature-flux.js",
+    "test:verbose": "node e2e-candidature-flux.js --verbose",
+    "test:watch": "nodemon e2e-candidature-flux.js --verbose",
+    "test:report": "node generate-report.js"
+  },
+  "keywords": [
+    "e2e-testing",
+    "automation",
+    "rhconnect",
+    "candidature"
+  ],
+  "author": "RHConnect Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-09-13T14:27:20.555Z",
+  "summary": {
+    "totalTests": 4,
+    "passed": 0,
+    "failed": 4,
+    "successRate": 0
+  },
+  "results": [
+    {
+      "step": 1,
+      "testName": "Profil candidat complété",
+      "passed": false,
+      "timestamp": "2026-09-13T14:27:20.018Z",
+      "details": {}
+    },
+    {
+      "step": 1,
+      "testName": "Offre créée et publiée",
+      "passed": false,
+      "timestamp": "2026-09-13T14:27:20.022Z",
+      "details": {
+        "reason": "Status 403"
+      }
+    },
+    {
+      "step": 1,
+      "testName": "Candidature POST envoyée (API réelle)",
+      "passed": false,
+      "timestamp": "2026-09-13T14:27:20.026Z",
+      "details": {
+        "reason": "HTTP 403"
+      }
+    },
+    {
+      "step": 1,
+      "testName": "Candidature visible côté entreprise (sync)",
+      "passed": false,
+      "timestamp": "2026-09-13T14:27:20.544Z",
+      "details": {
+        "reason": "HTTP 403"
+      }
+    }
+  ],
+  "conclusion": "⚠️  À investiguer"
+}

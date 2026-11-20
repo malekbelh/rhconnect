@@ -1,0 +1,32 @@
+{
+  "apiBaseUrl": "http://localhost:8080/api",
+  "frontendUrl": "http://localhost:5173",
+  "verbose": false,
+  "testAccounts": {
+    "candidatComplet": {
+      "email": "candidat-complet@test.fr",
+      "password": "Password123!",
+      "phone": "+216 90 123 4567",
+      "competences": ["React", "Node.js", "TypeScript"]
+    },
+    "candidatIncomplet": {
+      "email": "candidat-incomplet@test.fr",
+      "password": "Password123!"
+    },
+    "entreprise": {
+      "email": "recruteur@entreprise-test.fr",
+      "password": "Password123!",
+      "companyName": "TechCorp Tunisia"
+    },
+    "admin": {
+      "email": "admin@rhconnect.local",
+      "password": "Admin123!"
+    }
+  },
+  "timeouts": {
+    "apiCall": 10000,
+    "verification": 5000,
+    "polling": 1000,
+    "maxPolls": 30
+  }
+}
