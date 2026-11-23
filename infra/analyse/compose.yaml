@@ -1,0 +1,48 @@
+# Environnement de mesure reproductible (phase Measure / Control).
+# Usage : scripts/analyse.sh [REF] [DOSSIER_SORTIE]
+#   ou    REF=v0-baseline OUT_DIR=docs/mesures/v0 docker compose -f infra/analyse/compose.yaml run --rm analyse
+name: rhconnect-analyse
+
+services:
+  sonarqube:
+    image: sonarqube:10.7.0-community
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+      # Mémoire bornée pour tenir sur un poste de 8 Go
+      SONAR_WEB_JAVAOPTS: "-Xmx512m"
+      SONAR_CE_JAVAOPTS: "-Xmx1g"
+      SONAR_SEARCH_JAVAOPTS: "-Xmx512m -Xms512m"
+    mem_limit: 3g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9000/api/system/status | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  mongo:
+    image: mongo:7.0.14
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      retries: 20
+
+  analyse:
+    build: .
+    depends_on:
+      sonarqube: { condition: service_healthy }
+      mongo: { condition: service_healthy }
+    environment:
+      REF: ${REF:-v0-baseline}
+      OUT_DIR: ${OUT_DIR:-docs/mesures/v0}
+      SONAR_HOST_URL: http://sonarqube:9000
+      MONGO_URI: mongodb://mongo:27017/rhconnect
+    volumes:
+      - ../..:/repo                      # dépôt (lecture du tag, écriture des rapports)
+      - m2-cache:/root/.m2               # cache Maven (accélère les relances)
+      - trivy-cache:/root/.cache/trivy   # base de vulnérabilités Trivy
+    shm_size: 1gb                        # Chromium (Lighthouse)
+
+volumes:
+  m2-cache:
+  trivy-cache:
