@@ -1,0 +1,15 @@
+{
+  "ref": "v0-baseline",
+  "commit": "2106a2643b73131429f26b3bb826d80cd95fee56",
+  "date": "2026-11-23T16:54:25Z",
+  "outils": {
+    "sonarqube": "10.7.0-community",
+    "scanner": "SonarScanner CLI 6.2.1.4610",
+    "ck": "0.7.0",
+    "gitleaks": "8.21.2",
+    "trivy": "Version: 0.75.0",
+    "lighthouse": "12.2.1",
+    "java": "openjdk version \"17.0.21.1\" 2026-11-17",
+    "node": "v22.14.0"
+  }
+}

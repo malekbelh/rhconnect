@@ -1,0 +1,318 @@
+{
+  "sonar": {
+    "sqale_debt_ratio": "0.4",
+    "complexity": "5374",
+    "statements": "7614",
+    "vulnerabilities": "5",
+    "violations": "748",
+    "functions": "1891",
+    "lines": "44302",
+    "duplicated_lines": "1688",
+    "critical_violations": "152",
+    "classes": "154",
+    "security_rating": "5.0",
+    "reliability_rating": "5.0",
+    "minor_violations": "249",
+    "duplicated_lines_density": "3.8",
+    "duplicated_blocks": "59",
+    "ncloc": "39177",
+    "reliability_remediation_effort": "230",
+    "line_coverage": "0.0",
+    "bugs": "29",
+    "cognitive_complexity": "3450",
+    "code_smells": "714",
+    "sqale_index": "4652",
+    "blocker_violations": "6",
+    "sqale_rating": "1.0",
+    "security_hotspots": "20",
+    "major_violations": "337",
+    "info_violations": "4",
+    "files": "222",
+    "security_review_rating": "5.0",
+    "coverage": "0.0",
+    "comment_lines_density": "3.2"
+  },
+  "pareto": {
+    "total": 748,
+    "regles": 82,
+    "regles80": 21,
+    "top": [
+      {
+        "rule": "typescript:S6747",
+        "count": 123,
+        "severity": "MAJOR",
+        "type": "CODE_SMELL",
+        "msg": "Unknown property 'v\\u0010       ' found"
+      },
+      {
+        "rule": "java:S1192",
+        "count": 98,
+        "severity": "CRITICAL",
+        "type": "CODE_SMELL",
+        "msg": "Define a constant instead of duplicating this literal \"degraded\" 3 times."
+      },
+      {
+        "rule": "typescript:S6606",
+        "count": 63,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator."
+      },
+      {
+        "rule": "typescript:S3358",
+        "count": 59,
+        "severity": "MAJOR",
+        "type": "CODE_SMELL",
+        "msg": "Extract this nested ternary operation into an independent statement."
+      },
+      {
+        "rule": "typescript:S6853",
+        "count": 59,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "A form label must be associated with a control."
+      },
+      {
+        "rule": "typescript:S3776",
+        "count": 18,
+        "severity": "CRITICAL",
+        "type": "CODE_SMELL",
+        "msg": "Refactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed."
+      },
+      {
+        "rule": "typescript:S6479",
+        "count": 17,
+        "severity": "MAJOR",
+        "type": "CODE_SMELL",
+        "msg": "Do not use Array index in keys"
+      },
+      {
+        "rule": "java:S1854",
+        "count": 16,
+        "severity": "MAJOR",
+        "type": "CODE_SMELL",
+        "msg": "Remove this useless assignment to local variable \"base64Cv\"."
+      },
+      {
+        "rule": "java:S1481",
+        "count": 16,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "Remove this unused \"base64Cv\" local variable."
+      },
+      {
+        "rule": "java:S3776",
+        "count": 15,
+        "severity": "CRITICAL",
+        "type": "CODE_SMELL",
+        "msg": "Refactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed."
+      },
+      {
+        "rule": "typescript:S6582",
+        "count": 15,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "Prefer using an optional chain expression instead, as it's more concise and easier to read."
+      },
+      {
+        "rule": "java:S6204",
+        "count": 14,
+        "severity": "MAJOR",
+        "type": "CODE_SMELL",
+        "msg": "Replace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified."
+      },
+      {
+        "rule": "typescript:S6848",
+        "count": 14,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element."
+      },
+      {
+        "rule": "typescript:S1082",
+        "count": 14,
+        "severity": "MINOR",
+        "type": "BUG",
+        "msg": "Visible, non-interactive elements with click handlers must have at least one keyboard listener."
+      },
+      {
+        "rule": "java:S1128",
+        "count": 12,
+        "severity": "MINOR",
+        "type": "CODE_SMELL",
+        "msg": "Remove this unused import 'org.springframework.web.filter.OncePerRequestFilter'."
+      }
+    ]
+  },
+  "fichiers": [
+    {
+      "path": "frontend-public/src/components/layout/AppLayout.tsx",
+      "debt": 740,
+      "smells": 143,
+      "cx": 107,
+      "ncloc": 558
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/seeder/DatabaseSeeder.java",
+      "debt": 276,
+      "smells": 42,
+      "cx": 70,
+      "ncloc": 805
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/service/ApplicationService.java",
+      "debt": 183,
+      "smells": 19,
+      "cx": 209,
+      "ncloc": 676
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/ai/provider/OllamaAIProvider.java",
+      "debt": 146,
+      "smells": 16,
+      "cx": 68,
+      "ncloc": 231
+    },
+    {
+      "path": "frontend-public/src/pages/candidate/ProfilePage.tsx",
+      "debt": 146,
+      "smells": 26,
+      "cx": 207,
+      "ncloc": 1188
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/service/AuthService.java",
+      "debt": 145,
+      "smells": 20,
+      "cx": 107,
+      "ncloc": 535
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/service/StatsService.java",
+      "debt": 142,
+      "smells": 15,
+      "cx": 71,
+      "ncloc": 285
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/service/VerificationService.java",
+      "debt": 136,
+      "smells": 9,
+      "cx": 160,
+      "ncloc": 573
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/service/OfferService.java",
+      "debt": 133,
+      "smells": 16,
+      "cx": 170,
+      "ncloc": 619
+    },
+    {
+      "path": "backend/src/main/java/com/rhconnect/repository/ApplicationRepositoryImpl.java",
+      "debt": 123,
+      "smells": 10,
+      "cx": 6,
+      "ncloc": 143
+    }
+  ],
+  "ck": {
+    "classes": 133,
+    "cbo": {
+      "moyenne": 8.44,
+      "mediane": 6,
+      "max": 43
+    },
+    "dit": {
+      "moyenne": 1.07,
+      "mediane": 1,
+      "max": 4
+    },
+    "noc": {
+      "moyenne": 0,
+      "mediane": 0,
+      "max": 0
+    },
+    "wmc": {
+      "moyenne": 12.58,
+      "mediane": 2,
+      "max": 180
+    },
+    "rfc": {
+      "moyenne": 16.07,
+      "mediane": 0,
+      "max": 182
+    },
+    "lcom": {
+      "moyenne": 6.14,
+      "mediane": 0,
+      "max": 219
+    },
+    "lcom*": {
+      "moyenne": 0.24,
+      "mediane": 0,
+      "max": 0.875
+    },
+    "loc": {
+      "moyenne": 42.92,
+      "mediane": 17,
+      "max": 473
+    }
+  },
+  "buildFront": {
+    "statut": "ECHEC",
+    "erreursTypeScript": 2
+  },
+  "couverture": 0,
+  "trivy": {
+    "CRITICAL": 13,
+    "HIGH": 76,
+    "MEDIUM": 79,
+    "LOW": 18,
+    "UNKNOWN": 0,
+    "secrets": 0,
+    "misconfig": 0
+  },
+  "lighthouse": {
+    "admin-connexion": {
+      "perf": 100,
+      "a11y": 94,
+      "bp": 100,
+      "seo": 82,
+      "fcp": 421.34,
+      "lcp": 517.12,
+      "tbt": 0,
+      "cls": 0.01
+    },
+    "public-accueil": {
+      "perf": 83,
+      "a11y": 92,
+      "bp": 100,
+      "seo": 82,
+      "fcp": 1815.74,
+      "lcp": 1815.74,
+      "tbt": 0,
+      "cls": 0
+    },
+    "public-connexion": {
+      "perf": 93,
+      "a11y": 94,
+      "bp": 100,
+      "seo": 82,
+      "fcp": 1235.87,
+      "lcp": 1235.87,
+      "tbt": 0,
+      "cls": 0
+    },
+    "public-inscription": {
+      "perf": 100,
+      "a11y": 94,
+      "bp": 100,
+      "seo": 82,
+      "fcp": 680.88,
+      "lcp": 680.88,
+      "tbt": 0,
+      "cls": 0
+    }
+  }
+}
